@@ -19,7 +19,7 @@ def is_mixed_script(string, allowed_categories=['COMMON']):
     return len(cats) > 1
 
 
-def is_confusable(string, greedy=False, preferred_aliases=['LATIN']):
+def is_confusable(string, greedy=False, preferred_aliases=[]):
     preferred_aliases = map(str.upper, preferred_aliases)
     outputs = []
     checked = set()
@@ -47,5 +47,5 @@ def is_confusable(string, greedy=False, preferred_aliases=['LATIN']):
     return outputs or False
 
 
-def is_dangerous(string):
+def is_dangerous(string, preferred_aliases=[]):
     return is_mixed_script(string) and is_confusable(string)

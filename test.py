@@ -55,19 +55,23 @@ class TestConfusables(unittest.TestCase):
         greek = confusables.is_confusable(looks_good)
         self.assertEqual(greek[0]['character'], '\xce\x91')
         self.assertIn(('A', 'LATIN CAPITAL LETTER A'), greek[0]['homoglyphs'])
-        latin = confusables.is_confusable(is_good)
+        latin = confusables.is_confusable(is_good, preferred_aliases=['latin'])
         self.assertFalse(latin)
 
         # stop at first confusable character
         self.assertEqual(len(confusables.is_confusable(u'Αlloρ', greedy=False)), 1)
         # find all confusable characters
-        self.assertEqual(len(confusables.is_confusable(u'Αlloρ', greedy=True)), 2)
+        # Α (greek), l, o, and ρ can be confused with other unicode characters
+        self.assertEqual(len(confusables.is_confusable(u'Αlloρ', greedy=True)), 4)
+        # Only Α (greek) and ρ (greek) can be confused with a latin character
+        self.assertEqual(
+            len(confusables.is_confusable(u'Αlloρ', greedy=True, preferred_aliases=['latin'])), 2)
 
-        # for "Latin" readers, ρ is confusable!   ↓
-        confusable = confusables.is_confusable(u'pρ', preferred_aliases=['latin'])[0]['character']
+        # for "Latin" readers, ρ is confusable!    ↓
+        confusable = confusables.is_confusable(u'paρa', preferred_aliases=['latin'])[0]['character']
         self.assertEqual(confusable, unicode.encode(u'ρ', 'utf-8'))
         # for "Greek" readers, p is confusable!  ↓
-        confusable = confusables.is_confusable(u'pρ', preferred_aliases=['greek'])[0]['character']
+        confusable = confusables.is_confusable(u'paρa', preferred_aliases=['greek'])[0]['character']
         self.assertEqual(confusable, 'p')
 
     def test_dangerous(self):
@@ -75,6 +79,9 @@ class TestConfusables(unittest.TestCase):
         self.assertTrue(confusables.is_dangerous(u' ρττ a'))
         self.assertTrue(confusables.is_dangerous(u'ρττ a'))
         self.assertTrue(confusables.is_dangerous(u'Alloτ'))
+        self.assertTrue(confusables.is_dangerous(u'www.micros﻿оft.com'))
+        self.assertTrue(confusables.is_dangerous(u'www.Αpple.com'))
+        self.assertTrue(confusables.is_dangerous(u'www.faϲebook.com'))
         self.assertFalse(confusables.is_dangerous(is_good))
         self.assertFalse(confusables.is_dangerous(u' ρτ.τ'))
         self.assertFalse(confusables.is_dangerous(u'ρτ.τ'))
