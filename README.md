@@ -1,5 +1,5 @@
-# ϲοｎｆｕѕаｂｌе-һοｍоɡｌｙｐｈｓ
-# confusable-homoglyphs
+# `ϲοｎｆｕѕаｂｌе-һοｍоɡｌｙｐｈｓ`
+# `confusable-homoglyphs`
 
 *a homoglyph is one of two or more graphemes, characters, or glyphs with shapes that appear identical or very similar* [wikipedia:Homoglyph](https://en.wikipedia.org/wiki/Homoglyph)
 
@@ -42,10 +42,11 @@ Takes a character or string and returns each character present in unicode's [con
 If `greedy=False`, it will only return the first confusable character found without looking at the rest of the string, `greedy=True` returns all of them.
 
 `preferred_aliases=[]` can take an array of unicode block aliases to be considered as your 'base' unicode blocks:
-    * considering `paρa`,
-        * with `preferred_aliases=['latin']`, the 3rd character `ρ` would be returned because this greek letter can be confused with latin `p`.
-        * with `preferred_aliases=['greek']`, the 1st character `p` would be returned because this latin letter can be confused with latin `p`.
-        * with `preferred_aliases=[]` and `greedy=True`, you'll discover the 29 characters that can be confused with `p`, the 23 characters that look like `a`, and the one that looks like `ρ` (which is, of course, *p* aka *LATIN SMALL LETTER P*).
+
+* considering `paρa`,
+    * with `preferred_aliases=['latin']`, the 3rd character `ρ` would be returned because this greek letter can be confused with latin `p`.
+    * with `preferred_aliases=['greek']`, the 1st character `p` would be returned because this latin letter can be confused with latin `p`.
+    * with `preferred_aliases=[]` and `greedy=True`, you'll discover the 29 characters that can be confused with `p`, the 23 characters that look like `a`, and the one that looks like `ρ` (which is, of course, *p* aka *LATIN SMALL LETTER P*).
 
 #### `confusables.is_dangerous`
 
@@ -56,7 +57,6 @@ confusables.is_dangerous(unicode_string, preferred_aliases=['latin'])
 Boolean: `True` if is_mixed_script(unicode_string) *and* is_confusable(unicode_string).
 
 The `preferred_aliases` argument is simply passed to `is_confusable`.
-
 
 ## Is the data up to date?
 
