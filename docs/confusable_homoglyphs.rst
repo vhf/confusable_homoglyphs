@@ -20,22 +20,6 @@ confusable_homoglyphs.confusables module
     :undoc-members:
     :show-inheritance:
 
-confusable_homoglyphs.generate_categories module
-------------------------------------------------
-
-.. automodule:: confusable_homoglyphs.generate_categories
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-confusable_homoglyphs.generate_confusables module
--------------------------------------------------
-
-.. automodule:: confusable_homoglyphs.generate_confusables
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 confusable_homoglyphs.make_unicode module
 -----------------------------------------
 
