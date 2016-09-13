@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import json
 import unittest
 
 from confusable_homoglyphs import categories, confusables
@@ -13,10 +12,9 @@ looks_good = is_good.replace(latin_a, greek_a)
 
 
 class TestCategories(unittest.TestCase):
-    def test_generated(self):
-        with open('categories.json', 'r') as file:
-            categories_data = json.load(file)
-        self.assertEqual(type(categories_data), type({}))
+    def test_generating(self):
+        categories.delete()
+        self.assertTrue(categories.generate())
 
     def test_aliases_categories(self):
         self.assertEqual(categories.aliases_categories(latin_a), (
@@ -38,10 +36,9 @@ class TestCategories(unittest.TestCase):
 
 
 class TestConfusables(unittest.TestCase):
-    def test_generated(self):
-        with open('confusables.json', 'r') as file:
-            confusables_matrix = json.load(file)
-        self.assertEqual(type(confusables_matrix), type({}))
+    def test_generating(self):
+        confusables.delete()
+        self.assertTrue(confusables.generate())
 
     def test_is_mixed_script(self):
         self.assertTrue(confusables.is_mixed_script(looks_good))
