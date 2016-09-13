@@ -2,7 +2,7 @@
 import json
 import os
 import re
-from make_unicode import u
+from .make_unicode import u
 
 try:
     from urllib.request import urlopen
