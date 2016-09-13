@@ -1,9 +1,9 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import json
 import unittest
 
-import categories
-import confusables
+from confusable_homoglyphs import categories, confusables
 
 latin_a = u'A'
 greek_a = u'Α'
