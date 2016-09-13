@@ -2,6 +2,6 @@
 Usage
 ========
 
-To use confusable-homoglyphs in a project::
+To use confusable_homoglyphs in a project::
 
-    import confusable-homoglyphs
+    import confusable_homoglyphs

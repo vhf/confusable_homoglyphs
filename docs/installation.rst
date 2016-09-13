@@ -4,9 +4,9 @@ Installation
 
 At the command line::
 
-    $ easy_install confusable-homoglyphs
+    $ easy_install confusable_homoglyphs
 
 Or, if you have virtualenvwrapper installed::
 
-    $ mkvirtualenv confusable-homoglyphs
-    $ pip install confusable-homoglyphs
+    $ mkvirtualenv confusable_homoglyphs
+    $ pip install confusable_homoglyphs

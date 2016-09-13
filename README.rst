@@ -1,7 +1,7 @@
 ``ϲοｎｆｕѕаｂｌе-һοｍоɡｌｙｐｈｓ``
 ====================================
 
-``confusable-homoglyphs``
+``confusable_homoglyphs``
 =========================
 
 *a homoglyph is one of two or more graphemes, characters, or glyphs with
