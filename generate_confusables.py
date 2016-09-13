@@ -1,13 +1,21 @@
 # -*- coding: utf-8 -*-
-import pickle
+import json
 import re
-import urllib2
 from collections import defaultdict
+from make_unicode import u
+
+try:
+    from urllib.request import urlopen
+
+    def get(url):
+        return list(map(u, urlopen(url).read().decode('utf-8').split('\n')))
+except:
+    from urllib2 import urlopen as get
 
 
 def generate():
     url = 'http://www.unicode.org/Public/security/latest/confusables.txt'
-    file = urllib2.urlopen(url)
+    file = get(url)
     confusables_matrix = defaultdict(list)
     match = re.compile(r'[0-9A-F ]+\s+;\s*[0-9A-F ]+\s+;\s*\w+\s*#'
                        r'\*?\s*\( (.+) → (.+) \) (.+) → (.+)\t#',
@@ -16,11 +24,17 @@ def generate():
         p = re.findall(match, line)
         if p:
             char1, char2, name1, name2 = p[0]
-            confusables_matrix[char1].append((char2, name2))
-            confusables_matrix[char2].append((char1, name1))
+            confusables_matrix[char1].append({
+                'c': char2,
+                'n': name2,
+            })
+            confusables_matrix[char2].append({
+                'c': char1,
+                'n': name1,
+            })
 
     confusables_matrix = dict(confusables_matrix)
 
-    with open('confusables.pkl', 'wb') as datafile:
-        pickle.dump(confusables_matrix, datafile, 2)
-    return confusables_matrix
+    with open('confusables.json', 'w+') as datafile:
+        json.dump(confusables_matrix, datafile)
+    return True

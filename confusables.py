@@ -1,14 +1,21 @@
 # -*- coding: utf-8 -*-
-import pickle
+import json
+import os
+
 import categories
 
+
+def load():
+    with open('{}/confusables.json'.format(os.getcwd()), 'r') as file:
+        return json.load(file)
+
 try:
-    with open('confusables.pkl', 'r') as file:
-        confusables_data = pickle.load(file)
-except IOError:
+    confusables_data = load()
+except:
     try:
         from generate_confusables import generate
-        confusables_data = generate()
+        if generate():
+            confusables_data = load()
     except:
         raise Exception('Datafile not found, datafile generation failed!')
 
@@ -20,7 +27,7 @@ def is_mixed_script(string, allowed_categories=['COMMON']):
 
 
 def is_confusable(string, greedy=False, preferred_aliases=[]):
-    preferred_aliases = map(str.upper, preferred_aliases)
+    preferred_aliases = list(map(str.upper, preferred_aliases))
     outputs = []
     checked = set()
     for char in string:
@@ -32,7 +39,6 @@ def is_confusable(string, greedy=False, preferred_aliases=[]):
             # these are safe: the character is confusable with homoglyphs from other
             # categories than our preferred categories (=aliases)
             continue
-        char = unicode.encode(char, 'utf-8')
         found = confusables_data.get(char)
         if found:  # we found homoglyphs
             output = {
@@ -48,4 +54,4 @@ def is_confusable(string, greedy=False, preferred_aliases=[]):
 
 
 def is_dangerous(string, preferred_aliases=[]):
-    return is_mixed_script(string) and is_confusable(string)
+    return is_mixed_script(string) and is_confusable(string, *preferred_aliases)

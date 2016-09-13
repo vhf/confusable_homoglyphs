@@ -1,13 +1,19 @@
 # -*- coding: utf-8 -*-
-import pickle
+import json
+import os
+
+
+def load():
+    with open('{}/categories.json'.format(os.getcwd()), 'r') as file:
+        return json.load(file)
 
 try:
-    with open('categories.pkl', 'r') as file:
-        categories_data = pickle.load(file)
-except IOError:
+    categories_data = load()
+except:
     try:
         from generate_categories import generate
-        categories_data = generate()
+        if generate():
+            categories_data = load()
     except:
         raise Exception('Datafile not found, datafile generation failed!')
 

@@ -1,6 +1,15 @@
-import pickle
+# -*- coding: utf-8 -*-
+import json
 import re
-import urllib2
+from make_unicode import u
+
+try:
+    from urllib.request import urlopen
+
+    def get(url):
+        return urlopen(url).read().decode('utf-8').split('\n')
+except:
+    from urllib2 import urlopen as get
 
 
 def generate():
@@ -13,12 +22,13 @@ def generate():
                        re.UNICODE)
 
     url = 'http://www.unicode.org/Public/UNIDATA/Scripts.txt'
-    file = urllib2.urlopen(url)
+    file = get(url)
     for line in file:
         p = re.findall(match, line)
         if p:
             code_point_range_from, code_point_range_to, alias, category = p[0]
-            alias = alias.upper()
+            alias = u(alias.upper())
+            category = u(category)
             if alias not in iso_15924_aliases:
                 iso_15924_aliases.append(alias)
             if category not in categories:
@@ -36,5 +46,6 @@ def generate():
         'code_points_ranges': code_points_ranges,
     }
 
-    with open('categories.pkl', 'wb') as datafile:
-        pickle.dump(categories_data, datafile, 2)
+    with open('categories.json', 'w+') as datafile:
+        json.dump(categories_data, datafile)
+    return True

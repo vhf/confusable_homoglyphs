@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
-import pickle
+import json
 import unittest
 
 import categories
 import confusables
 
-is_good = u'Allo'
-looks_good = is_good.replace(u'A', u'Α')
-
 latin_a = u'A'
 greek_a = u'Α'
+
+is_good = 'Allo'
+looks_good = is_good.replace(latin_a, greek_a)
 
 
 class TestCategories(unittest.TestCase):
     def test_generated(self):
-        with open('categories.pkl', 'r') as file:
-            categories_data = pickle.load(file)
+        with open('categories.json', 'r') as file:
+            categories_data = json.load(file)
         self.assertEqual(type(categories_data), type({}))
 
     def test_aliases_categories(self):
@@ -39,8 +39,8 @@ class TestCategories(unittest.TestCase):
 
 class TestConfusables(unittest.TestCase):
     def test_generated(self):
-        with open('confusables.pkl', 'r') as file:
-            confusables_matrix = pickle.load(file)
+        with open('confusables.json', 'r') as file:
+            confusables_matrix = json.load(file)
         self.assertEqual(type(confusables_matrix), type({}))
 
     def test_is_mixed_script(self):
@@ -52,9 +52,9 @@ class TestConfusables(unittest.TestCase):
         self.assertFalse(confusables.is_mixed_script(u'ρτ.τ '))
 
     def test_is_confusable(self):
-        greek = confusables.is_confusable(looks_good)
-        self.assertEqual(greek[0]['character'], '\xce\x91')
-        self.assertIn(('A', 'LATIN CAPITAL LETTER A'), greek[0]['homoglyphs'])
+        greek = confusables.is_confusable(looks_good, preferred_aliases=['latin'])
+        self.assertEqual(greek[0]['character'], greek_a)
+        self.assertIn({'c': 'A', 'n': 'LATIN CAPITAL LETTER A'}, greek[0]['homoglyphs'])
         latin = confusables.is_confusable(is_good, preferred_aliases=['latin'])
         self.assertFalse(latin)
 
@@ -67,10 +67,10 @@ class TestConfusables(unittest.TestCase):
         self.assertEqual(
             len(confusables.is_confusable(u'Αlloρ', greedy=True, preferred_aliases=['latin'])), 2)
 
-        # for "Latin" readers, ρ is confusable!    ↓
+        # for 'Latin' readers, ρ is confusable!    ↓
         confusable = confusables.is_confusable(u'paρa', preferred_aliases=['latin'])[0]['character']
-        self.assertEqual(confusable, unicode.encode(u'ρ', 'utf-8'))
-        # for "Greek" readers, p is confusable!  ↓
+        self.assertEqual(confusable, u'ρ')
+        # for 'Greek' readers, p is confusable!  ↓
         confusable = confusables.is_confusable(u'paρa', preferred_aliases=['greek'])[0]['character']
         self.assertEqual(confusable, 'p')
 

@@ -66,4 +66,4 @@ The unicode blocks aliases and names for each character are extracted from [this
 
 The matrix of which character can be confused with which other characters is built using [this file](http://www.unicode.org/Public/security/latest/confusables.txt) provided by the unicode consortium.
 
-This data is stored in two pickled files: `categories.pkl` and `confusables.pkl`. If you delete them, they will both be recreated by downloading and parsing the two abovementioned files and stored as pickled files again.
+This data is stored in two JSON files: `categories.json` and `confusables.json`. If you delete them, they will both be recreated by downloading and parsing the two abovementioned files and stored as JSON files again.
