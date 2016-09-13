@@ -3,8 +3,8 @@ import json
 import os
 import re
 from collections import defaultdict
-from make_unicode import u
-import categories
+from .make_unicode import u
+from .categories import unique_aliases, alias
 
 try:
     from urllib.request import urlopen
@@ -32,7 +32,7 @@ except:
 
 def is_mixed_script(string, allowed_categories=['COMMON']):
     allowed_categories = map(str.upper, allowed_categories)
-    cats = categories.unique_aliases(string) - set(allowed_categories)
+    cats = unique_aliases(string) - set(allowed_categories)
     return len(cats) > 1
 
 
@@ -44,8 +44,8 @@ def is_confusable(string, greedy=False, preferred_aliases=[]):
         if char in checked:
             continue
         checked.add(char)
-        alias = categories.alias(char)
-        if alias in preferred_aliases:
+        char_alias = alias(char)
+        if char_alias in preferred_aliases:
             # these are safe: the character is confusable with homoglyphs from other
             # categories than our preferred categories (=aliases)
             continue
@@ -53,7 +53,7 @@ def is_confusable(string, greedy=False, preferred_aliases=[]):
         if found:  # we found homoglyphs
             output = {
                 'character': char,
-                'alias': alias,
+                'alias': char_alias,
                 'homoglyphs': found,
             }
             if not greedy:
