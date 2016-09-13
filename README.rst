@@ -1,8 +1,12 @@
-``ϲοｎｆｕѕаｂｌе＿һοｍоɡｌｙｐｈｓ``
-=========================
+confusable_homoglyphs
+=====================
 
-``confusable_homoglyphs``
-=========================
+
+.. image:: https://img.shields.io/travis/vhf/confusable_homoglyphs.svg
+        :target: https://travis-ci.org/vhf/confusable_homoglyphs
+
+.. image:: https://img.shields.io/pypi/v/confusable_homoglyphs.svg
+        :target: https://pypi.python.org/pypi/confusable_homoglyphs
 
 *a homoglyph is one of two or more graphemes, characters, or glyphs with
 shapes that appear identical or very similar*
