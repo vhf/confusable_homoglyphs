@@ -22,14 +22,14 @@ test_requirements = [
 ]
 
 setup(
-    name='confusable-homoglyphs',
+    name='confusable_homoglyphs',
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
     description='Detect confusable usage of unicode homoglyphs, prevent homograph attacks.',
     long_description=readme + '\n\n' + history,
     author='Victor Felder',
     author_email='victorfelder@gmail.com',
-    url='https://github.com/vhf/confusable-homoglyphs',
+    url='https://github.com/vhf/confusable_homoglyphs',
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
     entry_points={
         'console_scripts': [

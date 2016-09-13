@@ -11,4 +11,4 @@ recursive-exclude * *.py[co]
 recursive-include docs *.rst conf.py Makefile make.bat
 
 include versioneer.py
-include confusable-homoglyphs/_version.py
+include confusable_homoglyphs/_version.py
