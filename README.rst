@@ -8,7 +8,7 @@ confusable_homoglyphs
         :target: https://pypi.python.org/pypi/confusable_homoglyphs
 
 .. image:: https://readthedocs.org/projects/confusable_homoglyphs/badge/?version=stable
-        :target: http://confusable_homoglyphs.pypa.io/en/stable/?badge=stable
+        :target: https://readthedocs.org/projects/confusable-homoglyphs/badge/?version=stable
         :alt: Documentation Status
 
 *a homoglyph is one of two or more graphemes, characters, or glyphs with
@@ -45,7 +45,7 @@ Documentation
 -------------
 
 .. image:: https://readthedocs.org/projects/confusable_homoglyphs/badge/?version=stable
-        :target: http://confusable_homoglyphs.pypa.io/en/stable/?badge=stable
+        :target: https://readthedocs.org/projects/confusable-homoglyphs/badge/?version=stable
         :alt: Documentation Status
 
 
