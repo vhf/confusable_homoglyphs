@@ -1,5 +1,5 @@
-confusable_homoglyphs
-=====================
+confusable_homoglyphs `[doc] <http://confusable-homoglyphs.readthedocs.io/en/latest/>`__
+========================================================================================
 
 .. image:: https://img.shields.io/travis/vhf/confusable_homoglyphs.svg
         :target: https://travis-ci.org/vhf/confusable_homoglyphs
@@ -7,8 +7,8 @@ confusable_homoglyphs
 .. image:: https://img.shields.io/pypi/v/confusable_homoglyphs.svg
         :target: https://pypi.python.org/pypi/confusable_homoglyphs
 
-.. image:: https://readthedocs.org/projects/confusable_homoglyphs/badge/?version=stable
-        :target: https://readthedocs.org/projects/confusable-homoglyphs/badge/?version=stable
+.. image:: https://readthedocs.org/projects/confusable_homoglyphs/badge/?version=latest
+        :target: http://confusable-homoglyphs.readthedocs.io/en/latest/
         :alt: Documentation Status
 
 *a homoglyph is one of two or more graphemes, characters, or glyphs with
@@ -40,14 +40,8 @@ confused with a character from some unicode blocks of your choosing.
 
 This library is compatible Python 2 and Python 3.
 
-
-Documentation
--------------
-
-.. image:: https://readthedocs.org/projects/confusable_homoglyphs/badge/?version=stable
-        :target: https://readthedocs.org/projects/confusable-homoglyphs/badge/?version=stable
-        :alt: Documentation Status
-
+`API documentation <http://confusable-homoglyphs.readthedocs.io/en/latest/apidocumentation.html>`__
+---------------------------------------------------------------------------------------------------
 
 Is the data up to date?
 -----------------------

@@ -55,10 +55,10 @@ def is_confusable(string, greedy=False, preferred_aliases=[]):
     :param greedy: Don't stop on finding one confusable character - find all of them.
     :type greedy: bool
     :param preferred_aliases: Script blocks aliases which we don't want ``string``'s characters
-    to be confused with.
+        to be confused with.
     :type preferred_aliases: list(str)
     :return: False if not confusable, all confusable characters and with what they are confusable
-    otherwise.
+        otherwise.
     :rtype: bool or list
     """
     preferred_aliases = list(map(str.upper, preferred_aliases))
@@ -97,7 +97,7 @@ def is_dangerous(string, preferred_aliases=[]):
     :param string: A unicode string
     :type string: str
     :param preferred_aliases: Script blocks aliases which we don't want ``string``'s characters
-    to be confused with.
+        to be confused with.
     :type preferred_aliases: list(str)
     :return: Is it dangerous.
     :rtype: bool
