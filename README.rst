@@ -1,7 +1,6 @@
 confusable_homoglyphs
 =====================
 
-
 .. image:: https://img.shields.io/travis/vhf/confusable_homoglyphs.svg
         :target: https://travis-ci.org/vhf/confusable_homoglyphs
 
@@ -52,7 +51,7 @@ Documentation
 
     confusables.is_mixed_script(unicode_string)
 
-Boolean: is the mixed-script.
+Boolean: is ``unicode_string`` mixed-script.
 
 ``confusables.is_confusable``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -79,7 +78,7 @@ be considered as your 'base' unicode blocks:
       latin ``p``.
    -  with ``preferred_aliases=['greek']``, the 1st character ``p``
       would be returned because this latin letter can be confused with
-      latin ``p``.
+      greek ``ρ``.
    -  with ``preferred_aliases=[]`` and ``greedy=True``, you'll discover
       the 29 characters that can be confused with ``p``, the 23
       characters that look like ``a``, and the one that looks like ``ρ``
@@ -90,7 +89,7 @@ be considered as your 'base' unicode blocks:
 
 .. code:: python
 
-    confusables.is_dangerous(unicode_string, preferred_aliases=['latin'])
+    confusables.is_dangerous(unicode_string, preferred_aliases=[])
 
 Boolean: ``True`` if is\_mixed\_script(unicode\_string) *and*
 is\_confusable(unicode\_string).
