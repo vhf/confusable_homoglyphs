@@ -20,10 +20,10 @@ confusable_homoglyphs.confusables module
     :undoc-members:
     :show-inheritance:
 
-confusable_homoglyphs.make_unicode module
------------------------------------------
+confusable_homoglyphs.utils module
+----------------------------------
 
-.. automodule:: confusable_homoglyphs.make_unicode
+.. automodule:: confusable_homoglyphs.utils
     :members:
     :undoc-members:
     :show-inheritance:

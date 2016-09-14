@@ -7,6 +7,10 @@ confusable_homoglyphs
 .. image:: https://img.shields.io/pypi/v/confusable_homoglyphs.svg
         :target: https://pypi.python.org/pypi/confusable_homoglyphs
 
+.. image:: https://readthedocs.org/projects/confusable_homoglyphs/badge/?version=stable
+        :target: http://confusable_homoglyphs.pypa.io/en/stable/?badge=stable
+        :alt: Documentation Status
+
 *a homoglyph is one of two or more graphemes, characters, or glyphs with
 shapes that appear identical or very similar*
 `wikipedia:Homoglyph <https://en.wikipedia.org/wiki/Homoglyph>`__
@@ -34,68 +38,16 @@ confused with a character from some unicode blocks of your choosing.
 -  ``Alloρ`` is dangerous: mixed script and ``ρ`` could be confused with
    ``p``.
 
+This library is compatible Python 2 and Python 3.
+
+
 Documentation
 -------------
 
-``confusables``
-~~~~~~~~~~~~~~~
+.. image:: https://readthedocs.org/projects/confusable_homoglyphs/badge/?version=stable
+        :target: http://confusable_homoglyphs.pypa.io/en/stable/?badge=stable
+        :alt: Documentation Status
 
-.. code:: python
-
-    from confusable_homoglyphs import confusables
-
-``confusables.is_mixed_script``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. code:: python
-
-    confusables.is_mixed_script(unicode_string)
-
-Boolean: is ``unicode_string`` mixed-script.
-
-``confusables.is_confusable``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. code:: python
-
-    confusables.is_confusable(unicode_string, greedy=False, preferred_aliases=[])
-
-Takes a character or string and returns each character present in
-unicode's `confusable characters
-list <http://www.unicode.org/Public/security/latest/confusables.txt>`__.
-
-If ``greedy=False``, it will only return the first confusable character
-found without looking at the rest of the string, ``greedy=True`` returns
-all of them.
-
-``preferred_aliases=[]`` can take an array of unicode block aliases to
-be considered as your 'base' unicode blocks:
-
--  considering ``paρa``,
-
-   -  with ``preferred_aliases=['latin']``, the 3rd character ``ρ``
-      would be returned because this greek letter can be confused with
-      latin ``p``.
-   -  with ``preferred_aliases=['greek']``, the 1st character ``p``
-      would be returned because this latin letter can be confused with
-      greek ``ρ``.
-   -  with ``preferred_aliases=[]`` and ``greedy=True``, you'll discover
-      the 29 characters that can be confused with ``p``, the 23
-      characters that look like ``a``, and the one that looks like ``ρ``
-      (which is, of course, *p* aka *LATIN SMALL LETTER P*).
-
-``confusables.is_dangerous``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. code:: python
-
-    confusables.is_dangerous(unicode_string, preferred_aliases=[])
-
-Boolean: ``True`` if is\_mixed\_script(unicode\_string) *and*
-is\_confusable(unicode\_string).
-
-The ``preferred_aliases`` argument is simply passed to
-``is_confusable``.
 
 Is the data up to date?
 -----------------------

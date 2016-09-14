@@ -2,33 +2,17 @@
 import json
 import os
 import re
-from .make_unicode import u
-
-try:
-    from urllib.request import urlopen
-
-    def get(url):
-        return urlopen(url).read().decode('utf-8').split('\n')
-except:
-    from urllib2 import urlopen as get
-
-
-def load():
-    with open('{}/categories.json'.format(os.getcwd()), 'r') as file:
-        return json.load(file)
-
-try:
-    categories_data = load()
-except:
-    try:
-        from generate_categories import generate
-        if generate():
-            categories_data = load()
-    except:
-        raise Exception('Datafile not found, datafile generation failed!')
+from .utils import u, get, load
 
 
 def aliases_categories(chr):
+    """Retrieves the script block alias and unicode category for a unicode character.
+
+    :param chr: A unicode character
+    :type chr: str
+    :return: The script block alias and unicode category for a unicode character.
+    :rtype: (str, str)
+    """
     l = 0
     r = len(categories_data['code_points_ranges']) - 1
     c = ord(chr)
@@ -48,28 +32,47 @@ def aliases_categories(chr):
 
 
 def alias(chr):
+    """Retrieves the script block alias for a unicode character.
+
+    :param chr: A unicode character
+    :type chr: str
+    :return: The script block alias.
+    :rtype: str
+    """
     a, _ = aliases_categories(chr)
     return a
 
 
 def category(chr):
+    """Retrieves the unicode category for a unicode character.
+
+    :param chr: A unicode character
+    :type chr: str
+    :return: The unicode category for a unicode character.
+    :rtype: str
+    """
     _, a = aliases_categories(chr)
     return a
 
 
 def unique_aliases(string):
+    """Retrieves all unique script block aliases used in a unicode string.
+
+    :param string: A unicode character
+    :type string: str
+    :return: A set of the script block aliases used in a unicode string.
+    :rtype: (str, str)
+    """
     cats = [alias(c) for c in string]
     return set(cats)
 
 
-def delete():
-    try:
-        os.remove('{}/categories.json'.format(os.getcwd()))
-    except OSError:
-        pass
-
-
 def generate():
+    """Generates the categories JSON data file from the unicode specification.
+
+    :return: True for success, raises otherwise.
+    :rtype: bool
+    """
     # inspired by https://gist.github.com/anonymous/2204527
     code_points_ranges = []
     iso_15924_aliases = []
@@ -106,3 +109,13 @@ def generate():
     with open('{}/categories.json'.format(os.getcwd()), 'w+') as datafile:
         json.dump(categories_data, datafile)
     return True
+
+
+try:
+    categories_data = load('categories.json')
+except:
+    try:
+        if generate():
+            categories_data = load('categories.json')
+    except:
+        raise Exception('Datafile not found, datafile generation failed!')

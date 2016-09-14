@@ -1,11 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import unittest
+import versioneer
 from codecs import open
 from os import path
 from setuptools import setup, find_packages
 
-import versioneer
+
+def test_suite():
+    test_loader = unittest.TestLoader()
+    suite = test_loader.discover('tests', pattern='test_*.py')
+    return suite
+
 
 here = path.abspath(path.dirname(__file__))
 
@@ -39,7 +46,7 @@ setup(
     include_package_data=True,
     install_requires=requirements,
     license="MIT",
-    keywords='confusable homoglyph attack homograph unicode spoofing',
+    keywords=['confusable', 'homoglyph', 'attack', 'homograph', 'unicode', 'spoofing'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
@@ -55,6 +62,6 @@ setup(
         'Topic :: Text Processing',
         'Topic :: Utilities',
     ],
-    test_suite='tests',
+    test_suite='setup.test_suite',
     tests_require=test_requirements
 )
