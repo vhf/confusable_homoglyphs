@@ -34,7 +34,7 @@ exclude mixed-script strings containing characters that might be
 confused with a character from some unicode blocks of your choosing.
 
 -  ``Allo`` and ``ρττ`` are fine: single script.
--  ``Alloτ`` is fine: mixed script, but ``τ`` is not confusable.
+-  ``AlloΓ`` is fine when our preferred script alias is 'latin': mixed script, but ``Γ`` is not confusable.
 -  ``Alloρ`` is dangerous: mixed script and ``ρ`` could be confused with
    ``p``.
 

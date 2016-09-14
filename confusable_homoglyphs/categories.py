@@ -8,6 +8,13 @@ from .utils import u, get, load
 def aliases_categories(chr):
     """Retrieves the script block alias and unicode category for a unicode character.
 
+    >>> categories.aliases_categories('A')
+    ('LATIN', 'L')
+    >>> categories.aliases_categories('τ')
+    ('GREEK', 'L')
+    >>> categories.aliases_categories('-')
+    ('COMMON', 'Pd')
+
     :param chr: A unicode character
     :type chr: str
     :return: The script block alias and unicode category for a unicode character.
@@ -34,6 +41,13 @@ def aliases_categories(chr):
 def alias(chr):
     """Retrieves the script block alias for a unicode character.
 
+    >>> categories.alias('A')
+    'LATIN'
+    >>> categories.alias('τ')
+    'GREEK'
+    >>> categories.alias('-')
+    'COMMON'
+
     :param chr: A unicode character
     :type chr: str
     :return: The script block alias.
@@ -46,6 +60,13 @@ def alias(chr):
 def category(chr):
     """Retrieves the unicode category for a unicode character.
 
+    >>> categories.category('A')
+    'L'
+    >>> categories.category('τ')
+    'L'
+    >>> categories.category('-')
+    'Pd'
+
     :param chr: A unicode character
     :type chr: str
     :return: The unicode category for a unicode character.
@@ -57,6 +78,11 @@ def category(chr):
 
 def unique_aliases(string):
     """Retrieves all unique script block aliases used in a unicode string.
+
+    >>> categories.unique_aliases('ABC')
+    {'LATIN'}
+    >>> categories.unique_aliases('ρAτ-')
+    {'GREEK', 'LATIN', 'COMMON'}
 
     :param string: A unicode character
     :type string: str

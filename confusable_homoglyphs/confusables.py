@@ -7,22 +7,35 @@ from .utils import get, load
 from .categories import unique_aliases, alias
 
 
-def is_mixed_script(string, allowed_categories=['COMMON']):
+class Found(Exception):
+    pass
+
+
+def is_mixed_script(string, allowed_aliases=['COMMON']):
     """Checks if ``string`` contains mixed-scripts content, excluding script
-    blocks aliases in ``allowed_categories``.
+    blocks aliases in ``allowed_aliases``.
 
     E.g. ``B. C`` is not considered mixed-scripts by default: it contains characters
     from **Latin** and **Common**, but **Common** is excluded by default.
 
+    >>> confusables.is_mixed_script('Abç')
+    False
+    >>> confusables.is_mixed_script('ρτ.τ')
+    False
+    >>> confusables.is_mixed_script('ρτ.τ', allowed_aliases=[])
+    True
+    >>> confusables.is_mixed_script('Alloτ')
+    True
+
     :param string: A unicode string
     :type string: str
-    :param allowed_categories: Script blocks aliases not to consider.
-    :type allowed_categories: list(str)
+    :param allowed_aliases: Script blocks aliases not to consider.
+    :type allowed_aliases: list(str)
     :return: Whether ``string`` is considered mixed-scripts or not.
     :rtype: bool
     """
-    allowed_categories = map(str.upper, allowed_categories)
-    cats = unique_aliases(string) - set(allowed_categories)
+    allowed_aliases = map(str.upper, allowed_aliases)
+    cats = unique_aliases(string) - set(allowed_aliases)
     return len(cats) > 1
 
 
@@ -50,6 +63,21 @@ def is_confusable(string, greedy=False, preferred_aliases=[]):
           characters that look like ``a``, and the one that looks like ``ρ``
           (which is, of course, *p* aka *LATIN SMALL LETTER P*).
 
+    >>> confusables.is_confusable('paρa', preferred_aliases=['latin'])[0]['character']
+    'ρ'
+    >>> confusables.is_confusable('paρa', preferred_aliases=['greek'])[0]['character']
+    'p'
+    >>> confusables.is_confusable('Abç', preferred_aliases=['latin'])
+    False
+    >>> confusables.is_confusable('AlloΓ', preferred_aliases=['latin'])
+    False
+    >>> confusables.is_confusable('ρττ', preferred_aliases=['greek'])
+    False
+    >>> confusables.is_confusable('ρτ.τ', preferred_aliases=['greek', 'common'])
+    False
+    >>> confusables.is_confusable('ρττp')
+    [{'homoglyphs': [{'c': 'p', 'n': 'LATIN SMALL LETTER P'}], 'alias': 'GREEK', 'character': 'ρ'}]
+
     :param string: A unicode string
     :type string: str
     :param greedy: Don't stop on finding one confusable character - find all of them.
@@ -70,15 +98,32 @@ def is_confusable(string, greedy=False, preferred_aliases=[]):
         checked.add(char)
         char_alias = alias(char)
         if char_alias in preferred_aliases:
-            # these are safe: the character is confusable with homoglyphs from other
+            # it's safe if the character might be confusable with homoglyphs from other
             # categories than our preferred categories (=aliases)
             continue
         found = confusables_data.get(char)
-        if found:  # we found homoglyphs
+        # character λ is considered confusable if λ can be confused with a character from
+        # preferred_aliases, e.g. if 'LATIN', 'ρ' is confusable with 'p' from LATIN.
+        # if 'LATIN', 'Γ' is not confusable because in all the characters confusable with Γ,
+        # none of them is LATIN.
+        if preferred_aliases:
+            potentially_confusable = []
+            try:
+                for d in found:
+                    aliases = [alias(glyph) for glyph in d['c']]
+                    for a in aliases:
+                        if a in preferred_aliases:
+                            potentially_confusable = found
+                            raise Found()
+            except Found:
+                pass
+        else:
+            potentially_confusable = found
+        if potentially_confusable:  # we found homoglyphs
             output = {
                 'character': char,
                 'alias': char_alias,
-                'homoglyphs': found,
+                'homoglyphs': potentially_confusable,
             }
             if not greedy:
                 return [output]
@@ -94,6 +139,17 @@ def is_dangerous(string, preferred_aliases=[]):
 
     For ``preferred_aliases`` examples, see ``is_confusable`` docstring.
 
+    >>> bool(confusables.is_dangerous('Allo'))
+    False
+    >>> bool(confusables.is_dangerous('AlloΓ', preferred_aliases=['latin']))
+    False
+    >>> bool(confusables.is_dangerous('Alloρ'))
+    True
+    >>> bool(confusables.is_dangerous('AlaskaJazz'))
+    False
+    >>> bool(confusables.is_dangerous('ΑlaskaJazz'))
+    True
+
     :param string: A unicode string
     :type string: str
     :param preferred_aliases: Script blocks aliases which we don't want ``string``'s characters
@@ -102,7 +158,7 @@ def is_dangerous(string, preferred_aliases=[]):
     :return: Is it dangerous.
     :rtype: bool
     """
-    return is_mixed_script(string) and is_confusable(string, *preferred_aliases)
+    return is_mixed_script(string) and is_confusable(string, preferred_aliases=preferred_aliases)
 
 
 def generate():

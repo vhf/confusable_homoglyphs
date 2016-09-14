@@ -31,6 +31,8 @@ class TestConfusables(unittest.TestCase):
         latin = confusables.is_confusable(is_good, preferred_aliases=['latin'])
         self.assertFalse(latin)
 
+        self.assertFalse(confusables.is_confusable(u'AlloΓ', preferred_aliases=['latin']))
+
         # stop at first confusable character
         self.assertEqual(len(confusables.is_confusable(u'Αlloρ', greedy=False)), 1)
         # find all confusable characters
@@ -55,6 +57,7 @@ class TestConfusables(unittest.TestCase):
         self.assertTrue(confusables.is_dangerous(u'www.micros﻿оft.com'))
         self.assertTrue(confusables.is_dangerous(u'www.Αpple.com'))
         self.assertTrue(confusables.is_dangerous(u'www.faϲebook.com'))
+        self.assertFalse(confusables.is_dangerous(u'AlloΓ', preferred_aliases=['latin']))
         self.assertFalse(confusables.is_dangerous(is_good))
         self.assertFalse(confusables.is_dangerous(u' ρτ.τ'))
         self.assertFalse(confusables.is_dangerous(u'ρτ.τ'))
