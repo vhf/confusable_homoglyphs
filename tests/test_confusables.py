@@ -49,6 +49,11 @@ class TestConfusables(unittest.TestCase):
         confusable = confusables.is_confusable(u'paρa', preferred_aliases=['greek'])[0]['character']
         self.assertEqual(confusable, 'p')
 
+        try:
+            confusables.is_confusable('', preferred_aliases=[u'latin'])
+        except TypeError:
+            self.fail('TypeError when preferred_aliases provided as unicode')
+
     def test_dangerous(self):
         self.assertTrue(confusables.is_dangerous(looks_good))
         self.assertTrue(confusables.is_dangerous(u' ρττ a'))
@@ -61,6 +66,7 @@ class TestConfusables(unittest.TestCase):
         self.assertFalse(confusables.is_dangerous(is_good))
         self.assertFalse(confusables.is_dangerous(u' ρτ.τ'))
         self.assertFalse(confusables.is_dangerous(u'ρτ.τ'))
+
 
 if __name__ == '__main__':
     unittest.main()

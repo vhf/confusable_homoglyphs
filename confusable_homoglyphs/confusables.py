@@ -89,7 +89,7 @@ def is_confusable(string, greedy=False, preferred_aliases=[]):
         otherwise.
     :rtype: bool or list
     """
-    preferred_aliases = list(map(str.upper, preferred_aliases))
+    preferred_aliases = [a.upper() for a in preferred_aliases]
     outputs = []
     checked = set()
     for char in string:
