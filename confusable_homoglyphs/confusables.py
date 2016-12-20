@@ -34,7 +34,7 @@ def is_mixed_script(string, allowed_aliases=['COMMON']):
     :return: Whether ``string`` is considered mixed-scripts or not.
     :rtype: bool
     """
-    allowed_aliases = map(str.upper, allowed_aliases)
+    allowed_aliases = [a.upper() for a in allowed_aliases]
     cats = unique_aliases(string) - set(allowed_aliases)
     return len(cats) > 1
 

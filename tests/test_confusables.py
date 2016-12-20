@@ -24,6 +24,11 @@ class TestConfusables(unittest.TestCase):
         self.assertFalse(confusables.is_mixed_script(u'ρτ.τ'))
         self.assertFalse(confusables.is_mixed_script(u'ρτ.τ '))
 
+        try:
+            confusables.is_mixed_script('', allowed_aliases=[u'COMMON'])
+        except TypeError:
+            self.fail('TypeError when allowed_aliases provided as unicode')
+
     def test_is_confusable(self):
         greek = confusables.is_confusable(looks_good, preferred_aliases=['latin'])
         self.assertEqual(greek[0]['character'], greek_a)
