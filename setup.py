@@ -38,6 +38,7 @@ setup(
     author_email='victorfelder@gmail.com',
     url='https://github.com/vhf/confusable_homoglyphs',
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
+    package_data={'confusable_homoglyphs': ['categories.json', 'confusables.json']},
     entry_points={
         'console_scripts': [
             'confusable_homoglyphs=confusable_homoglyphs.cli:cli',
