@@ -12,8 +12,8 @@ if sys.version_info < (3,):
     def u(x):
         return codecs.unicode_escape_decode(x)[0]
 
-    def get(url):
-        return urlopen(url)
+    def get(url, timeout=None):
+        return urlopen(url, timeout=timeout)
 
 else:
     from urllib.request import urlopen
@@ -21,8 +21,8 @@ else:
     def u(x):
         return x
 
-    def get(url):
-        return urlopen(url).read().decode('utf-8').split('\n')
+    def get(url, timeout=None):
+        return urlopen(url, timeout=timeout).read().decode('utf-8').split('\n')
 
 
 def path(filename):
