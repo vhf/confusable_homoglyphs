@@ -2,7 +2,7 @@
 import json
 import os
 import re
-from .utils import u, get, load
+from .utils import u, get, load, dump
 
 
 def aliases_categories(chr):
@@ -132,8 +132,7 @@ def generate():
         'code_points_ranges': code_points_ranges,
     }
 
-    with open('{}/categories.json'.format(os.getcwd()), 'w+') as datafile:
-        json.dump(categories_data, datafile)
+    dump('categories.json', categories_data)
     return True
 
 

@@ -3,7 +3,7 @@ import json
 import os
 import re
 from collections import defaultdict
-from .utils import get, load
+from .utils import get, load, dump
 from .categories import unique_aliases, alias
 
 
@@ -186,10 +186,7 @@ def generate():
                 'n': name1,
             })
 
-    confusables_matrix = dict(confusables_matrix)
-
-    with open('{}/confusables.json'.format(os.getcwd()), 'w+') as datafile:
-        json.dump(confusables_matrix, datafile)
+    dump('confusables.json', dict(confusables_matrix))
     return True
 
 

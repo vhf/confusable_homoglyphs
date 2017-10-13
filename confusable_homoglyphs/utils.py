@@ -44,6 +44,11 @@ def load(filename):
         return json.load(file)
 
 
+def dump(filename, data):
+    with open(path(filename), 'w+') as file:
+        return json.dump(data, file)
+
+
 def delete(filename):
     """Deletes a JSON data file if it exists.
     """
