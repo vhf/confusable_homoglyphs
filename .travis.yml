@@ -7,6 +7,6 @@ python:
   - "3.6"
 # command to install dependencies
 install:
-  - "pip install ."
+  - travis_retry pip install tox tox-travis
 # command to run tests
-script: python setup.py test
+script: tox
