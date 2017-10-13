@@ -41,8 +41,11 @@ setup(
     entry_points={
         'console_scripts': [
             'confusable_homoglyphs=confusable_homoglyphs.cli:cli',
-            ],
-        },
+        ],
+    },
+    extras_require={
+        'cli': ['click'],
+    },
     include_package_data=True,
     install_requires=requirements,
     license="MIT",

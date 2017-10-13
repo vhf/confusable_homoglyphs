@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from confusable_homoglyphs import categories, utils
+from confusable_homoglyphs import categories
 
 latin_a = u'A'
 greek_a = u'Α'
@@ -12,9 +12,6 @@ looks_good = is_good.replace(latin_a, greek_a)
 
 
 class TestCategories(unittest.TestCase):
-    def test_generating(self):
-        utils.delete('categories.json')
-        self.assertTrue(categories.generate())
 
     def test_aliases_categories(self):
         self.assertEqual(categories.aliases_categories(latin_a), (
