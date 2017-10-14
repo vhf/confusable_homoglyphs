@@ -1,27 +1,35 @@
-confusable_homoglyphs package
-=============================
+confusable\_homoglyphs package
+==============================
 
 Submodules
 ----------
 
-confusable_homoglyphs.categories module
----------------------------------------
+confusable\_homoglyphs\.categories module
+-----------------------------------------
 
 .. automodule:: confusable_homoglyphs.categories
     :members:
     :undoc-members:
     :show-inheritance:
 
-confusable_homoglyphs.confusables module
-----------------------------------------
+confusable\_homoglyphs\.cli module
+----------------------------------
+
+.. automodule:: confusable_homoglyphs.cli
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+confusable\_homoglyphs\.confusables module
+------------------------------------------
 
 .. automodule:: confusable_homoglyphs.confusables
     :members:
     :undoc-members:
     :show-inheritance:
 
-confusable_homoglyphs.utils module
-----------------------------------
+confusable\_homoglyphs\.utils module
+------------------------------------
 
 .. automodule:: confusable_homoglyphs.utils
     :members:

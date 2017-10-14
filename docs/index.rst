@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Welcome to confusable_homoglyphs's documentation!
-======================================
+=================================================
 
 Contents:
 
