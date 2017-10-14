@@ -12,3 +12,5 @@ recursive-include docs *.rst conf.py Makefile make.bat
 
 include versioneer.py
 include confusable_homoglyphs/_version.py
+include confusable_homoglyphs/categories.json
+include confusable_homoglyphs/confusables.json

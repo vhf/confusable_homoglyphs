@@ -3,6 +3,7 @@ import json
 import os
 import sys
 
+PACKAGE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 if sys.version_info < (3,):
     import codecs
@@ -11,8 +12,8 @@ if sys.version_info < (3,):
     def u(x):
         return codecs.unicode_escape_decode(x)[0]
 
-    def get(url):
-        return urlopen(url)
+    def get(url, timeout=None):
+        return urlopen(url, timeout=timeout)
 
 else:
     from urllib.request import urlopen
@@ -20,8 +21,17 @@ else:
     def u(x):
         return x
 
-    def get(url):
-        return urlopen(url).read().decode('utf-8').split('\n')
+    def get(url, timeout=None):
+        return urlopen(url, timeout=timeout).read().decode('utf-8').split('\n')
+
+
+def path(filename):
+    """Returns a file path relative to this package directory.
+
+    :return: A file path string.
+    :rtype: str
+    """
+    return os.path.join(PACKAGE_DIR, filename)
 
 
 def load(filename):
@@ -30,14 +40,19 @@ def load(filename):
     :return: A dict.
     :rtype: dict
     """
-    with open('{}/{}'.format(os.getcwd(), filename), 'r') as file:
+    with open(path(filename), 'r') as file:
         return json.load(file)
+
+
+def dump(filename, data):
+    with open(path(filename), 'w+') as file:
+        return json.dump(data, file)
 
 
 def delete(filename):
     """Deletes a JSON data file if it exists.
     """
     try:
-        os.remove('{}/{}'.format(os.getcwd(), filename))
+        os.remove(path(filename))
     except OSError:
         pass

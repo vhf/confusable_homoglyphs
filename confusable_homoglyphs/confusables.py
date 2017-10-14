@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-import json
-import os
-import re
-from collections import defaultdict
-from .utils import get, load
+from .utils import load
 from .categories import unique_aliases, alias
+
+
+confusables_data = load('confusables.json')
 
 
 class Found(Exception):
@@ -159,45 +158,3 @@ def is_dangerous(string, preferred_aliases=[]):
     :rtype: bool
     """
     return is_mixed_script(string) and is_confusable(string, preferred_aliases=preferred_aliases)
-
-
-def generate():
-    """Generates the confusables JSON data file from the unicode specification.
-
-    :return: True for success, raises otherwise.
-    :rtype: bool
-    """
-    url = 'http://www.unicode.org/Public/security/latest/confusables.txt'
-    file = get(url)
-    confusables_matrix = defaultdict(list)
-    match = re.compile(r'[0-9A-F ]+\s+;\s*[0-9A-F ]+\s+;\s*\w+\s*#'
-                       r'\*?\s*\( (.+) → (.+) \) (.+) → (.+)\t#',
-                       re.UNICODE)
-    for line in file:
-        p = re.findall(match, line)
-        if p:
-            char1, char2, name1, name2 = p[0]
-            confusables_matrix[char1].append({
-                'c': char2,
-                'n': name2,
-            })
-            confusables_matrix[char2].append({
-                'c': char1,
-                'n': name1,
-            })
-
-    confusables_matrix = dict(confusables_matrix)
-
-    with open('{}/confusables.json'.format(os.getcwd()), 'w+') as datafile:
-        json.dump(confusables_matrix, datafile)
-    return True
-
-
-try:
-    confusables_data = load('confusables.json')
-except:
-    try:
-        if generate():
-            confusables_data = load('confusables.json')
-    except:
-        raise Exception('Datafile not found, datafile generation failed!')

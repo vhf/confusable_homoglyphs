@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from confusable_homoglyphs import confusables, utils
+from confusable_homoglyphs import confusables
 
 latin_a = u'A'
 greek_a = u'Α'
@@ -12,9 +12,6 @@ looks_good = is_good.replace(latin_a, greek_a)
 
 
 class TestConfusables(unittest.TestCase):
-    def test_generating(self):
-        utils.delete('confusables.json')
-        self.assertTrue(confusables.generate())
 
     def test_is_mixed_script(self):
         self.assertTrue(confusables.is_mixed_script(looks_good))
