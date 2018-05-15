@@ -39,7 +39,7 @@ def generate_categories():
     match = re.compile(r'([0-9A-F]+)(?:\.\.([0-9A-F]+))?\W+(\w+)\s*#\s*(\w+)',
                        re.UNICODE)
 
-    url = 'http://www.unicode.org/Public/UNIDATA/Scripts.txt'
+    url = 'ftp://ftp.unicode.org/Public/UNIDATA/Scripts.txt'
     file = get(url)
     for line in file:
         p = re.findall(match, line)
@@ -73,7 +73,7 @@ def generate_confusables():
     :return: True for success, raises otherwise.
     :rtype: bool
     """
-    url = 'http://www.unicode.org/Public/security/latest/confusables.txt'
+    url = 'ftp://ftp.unicode.org/Public/security/latest/confusables.txt'
     file = get(url)
     confusables_matrix = defaultdict(list)
     match = re.compile(r'[0-9A-F ]+\s+;\s*[0-9A-F ]+\s+;\s*\w+\s*#'
