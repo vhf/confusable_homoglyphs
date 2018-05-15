@@ -1,4 +1,3 @@
-
 from os.path import isfile
 import unittest
 
@@ -8,12 +7,12 @@ except ImportError:
     from urllib2 import URLError
 
 from confusable_homoglyphs.cli import generate_categories, generate_confusables
-from confusable_homoglyphs.utils import get, delete
+from confusable_homoglyphs.utils import get, delete, path
 
 
 def unicode_org_down():
     try:
-        get('https://www.unicode.org', timeout=5)
+        get('ftp://ftp.unicode.org/Public', timeout=5)
         return False
     except URLError:
         return True
@@ -23,14 +22,14 @@ def unicode_org_down():
 class TestUpdate(unittest.TestCase):
     def test_generate_categories(self):
         delete('categories.json')
-        self.assertFalse(isfile('categories.json'))
+        self.assertFalse(isfile(path('categories.json')))
 
         generate_categories()
-        self.assertTrue(isfile('categories.json'))
+        self.assertTrue(isfile(path('categories.json')))
 
     def test_generate_confusables(self):
         delete('confusables.json')
-        self.assertFalse(isfile('confusables.json'))
+        self.assertFalse(isfile(path('confusables.json')))
 
         generate_confusables()
-        self.assertTrue(isfile('confusables.json'))
+        self.assertTrue(isfile(path('confusables.json')))
