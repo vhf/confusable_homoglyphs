@@ -69,6 +69,10 @@ class TestConfusables(unittest.TestCase):
         self.assertFalse(confusables.is_dangerous(u' ρτ.τ'))
         self.assertFalse(confusables.is_dangerous(u'ρτ.τ'))
 
+    def test_char_not_found(self):
+        self.assertFalse(confusables.is_dangerous(u'Їt', preferred_aliases=['latin']))
+        self.assertTrue(confusables.is_dangerous(u'Їtτ', preferred_aliases=['latin']))
+
 
 if __name__ == '__main__':
     unittest.main()
