@@ -100,7 +100,9 @@ def is_confusable(string, greedy=False, preferred_aliases=[]):
             # it's safe if the character might be confusable with homoglyphs from other
             # categories than our preferred categories (=aliases)
             continue
-        found = confusables_data.get(char)
+        found = confusables_data.get(char, False)
+        if found is False:
+            continue
         # character λ is considered confusable if λ can be confused with a character from
         # preferred_aliases, e.g. if 'LATIN', 'ρ' is confusable with 'p' from LATIN.
         # if 'LATIN', 'Γ' is not confusable because in all the characters confusable with Γ,
