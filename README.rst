@@ -1,3 +1,5 @@
+⚠️ As of January 2024 this project is now maintained by *Elena “of Valhalla”* at `sr.ht/~valhalla/confusable_homoglyphs/ <https://sr.ht/~valhalla/confusable_homoglyphs/>`__.
+
 confusable_homoglyphs `[doc] <http://confusable-homoglyphs.readthedocs.io/en/latest/>`__
 ========================================================================================
 
